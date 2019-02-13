@@ -57,9 +57,10 @@
 		        when 1 then 'Y'
 		        else 'N'
 		        end "RACE"
-	      from students s
+        from students s
         join S_AK_STU_X ak on ak.studentsdcid = s.dcid
         where s.enroll_status = 0
+        and s.grade_level < 13
 			]]>
 		</sql>
 	</query>
@@ -83,12 +84,12 @@
       <![CDATA[
 				select
 	        s.student_number "STUDENT_ID",
-	        case s.grade_level
-		        when -2 then 'PK'
-		        when -1 then 'PK'
-		        when 0 then '0K'
+	        case
+		        when s.grade_level < 0 then 'PK'
+		        when s.grade_level = 0 then '0K'
+		        when s.grade_level < 10 then '0' || to_char (s.grade_level)
 		        else to_char (s.grade_level)
-		        end "Grade",
+		        end "GRADE",
 	        to_char (s.exitdate, 'mm/dd/yyyy') "SCHOOL_EXIT_DATE",
 	        '' "SCHOOL_EXIT_REASON",
 	        '' "TEACHER_ID",
@@ -107,6 +108,7 @@
         from students s
         join S_AK_STU_X ak on ak.studentsdcid = s.dcid
         where s.enroll_status = 0
+        and s.grade_level < 13
 			]]>
     </sql>
   </query>
@@ -180,6 +182,7 @@
         from students s
         join S_AK_STU_X ak on ak.studentsdcid = s.dcid
         where s.enroll_status = 0
+        and s.grade_level < 13
 			]]>
     </sql>
   </query>

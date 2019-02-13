@@ -27,10 +27,7 @@ select
 		when 1 then 'Y'
 		else 'N'
 		end "RACE"
-	
-
 from students s
 join S_AK_STU_X ak on ak.studentsdcid = s.dcid
-
 where s.enroll_status = 0
 and s.grade_level < 13

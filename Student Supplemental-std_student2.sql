@@ -33,10 +33,7 @@ select
 	'' "ENGLISH_PROFICIENCY",
 	'' "LEP_EXITDATE",
 	ak.fte "FTE_ENROLLMENT_LEVEL"
-
-
 from students s
 join S_AK_STU_X ak on ak.studentsdcid = s.dcid
-
 where s.enroll_status = 0
 and s.grade_level < 13
