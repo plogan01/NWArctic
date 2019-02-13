@@ -23,7 +23,7 @@
       <column column="STUDENTS.GENDER">CITIZENSHIP_TWO</column>
       <column column="STUDENTS.GENDER">ENTRY_YEAR</column>
       <column column="STUDENTS.GENDER">RESIDENT_ALIEN_ID</column>
-      <column column="PS_CUSTOMFIELDS.GETSTUDENTSCF">GEN_ED_ONLY</column>
+      <column column="S_AK_STU_X.DISABILITY_CODE">GEN_ED_ONLY</column>
       <column column="STUDENTS.FEDETHNICITY">RACE</column>
 		</columns>
 		<sql>
@@ -128,11 +128,11 @@
       <column column="S_AK_STU_X.MIGRANT">MIGRANT_ELIGIBLE</column>
       <column column="S_AK_STU_X.MIGRANT">MIGRANT_ELIGIBLE</column>
       <column column="S_AK_STU_X.MIGRANT">MIGRANT_ID</column>
-      <column column="PS_CUSTOMFIELDS.GETSTUDENTSCF">MEDICAID_ELIGIBLE</column>
-      <column column="PS_CUSTOMFIELDS.GETSTUDENTSCF">MEDICAID_ENROLLED</column>
-      <column column="PS_CUSTOMFIELDS.GETSTUDENTSCF">MEDICAID_ID</column>
-      <column column="PS_CUSTOMFIELDS.GETSTUDENTSCF">FREE_LUNCH</column>
-      <column column="PS_CUSTOMFIELDS.GETSTUDENTSCF">DWELLING_ARRANGEMENT</column>
+      <column column="S_AK_STU_X.DISABILITY_CODE">MEDICAID_ELIGIBLE</column>
+      <column column="S_AK_STU_X.DISABILITY_CODE">MEDICAID_ENROLLED</column>
+      <column column="S_AK_STU_X.DISABILITY_CODE">MEDICAID_ID</column>
+      <column column="S_AK_STU_X.DISABILITY_CODE">FREE_LUNCH</column>
+      <column column="S_AK_STU_X.DISABILITY_CODE">DWELLING_ARRANGEMENT</column>
       <column column="S_AK_STU_X.LEP">LIMITED_ENGLISH_PROFICIENCY</column>
       <column column="S_AK_STU_X.LEP">PREFERRED_LANGUAGE</column>
       <column column="S_AK_STU_X.LEP">NATIVE_LANGUAGE</column>
