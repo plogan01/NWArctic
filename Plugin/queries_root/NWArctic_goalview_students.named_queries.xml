@@ -50,7 +50,7 @@
 	        '' "ENTRY_YEAR",
 	        '' "RESIDENT_ALIEN_ID",
 	        case st.SPED_MEMBER
-		        when '1' then 'N'
+		        when 1 then 'N'
 		        else 'Y'
 		        end "GEN_ED_ONLY",
 	        case s.FedEthnicity
@@ -161,10 +161,7 @@
 	        ak.migrant "MIGRANT_ELIGIBLE",
 	        ak.migrant "MIGRANT_ELIGIBLE",
 	        '' "MIGRANT_ID",
-	        case st.SPED_MEMBER
-		        when '1' then 'Y'
-		        else 'N'
-		        end "MEDICAID_ELIGIBLE",
+	        '' "MEDICAID_ELIGIBLE",
 	        '' "MEDICAID_ENROLLED",
 	        '' "MEDICAID_ID",
 	        '' "FREE_LUNCH",
