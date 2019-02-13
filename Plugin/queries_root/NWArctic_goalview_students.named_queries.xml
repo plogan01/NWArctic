@@ -23,7 +23,7 @@
       <column column="STUDENTS.GENDER">CITIZENSHIP_TWO</column>
       <column column="STUDENTS.GENDER">ENTRY_YEAR</column>
       <column column="STUDENTS.GENDER">RESIDENT_ALIEN_ID</column>
-      <column column="S_AK_STU_X.DISABILITY_CODE">GEN_ED_ONLY</column>
+      <column column="U_STUDENTS.SPED_MEMBER">GEN_ED_ONLY</column>
       <column column="STUDENTS.FEDETHNICITY">RACE</column>
 		</columns>
 		<sql>
@@ -49,7 +49,7 @@
 	        '' "CITIZENSHIP_TWO",
 	        '' "ENTRY_YEAR",
 	        '' "RESIDENT_ALIEN_ID",
-	        case PS_CUSTOMFIELDS.GETSTUDENTSCF(S.ID,'sped_member')
+	        case st.SPED_MEMBER
 		        when '1' then 'N'
 		        else 'Y'
 		        end "GEN_ED_ONLY",
@@ -59,6 +59,7 @@
 		        end "RACE"
         from students s
         join S_AK_STU_X ak on ak.studentsdcid = s.dcid
+        join U_STUDENTS st on s.dcid = st.studentsdcid
         where s.enroll_status = 0
         and s.grade_level < 13
 			]]>
@@ -128,7 +129,7 @@
       <column column="S_AK_STU_X.MIGRANT">MIGRANT_ELIGIBLE</column>
       <column column="S_AK_STU_X.MIGRANT">MIGRANT_ELIGIBLE2</column>
       <column column="S_AK_STU_X.MIGRANT">MIGRANT_ID</column>
-      <column column="S_AK_STU_X.DISABILITY_CODE">MEDICAID_ELIGIBLE</column>
+      <column column="U_STUDENTS.SPED_MEMBER">MEDICAID_ELIGIBLE</column>
       <column column="S_AK_STU_X.DISABILITY_CODE">MEDICAID_ENROLLED</column>
       <column column="S_AK_STU_X.DISABILITY_CODE">MEDICAID_ID</column>
       <column column="S_AK_STU_X.DISABILITY_CODE">FREE_LUNCH</column>
@@ -160,7 +161,7 @@
 	        ak.migrant "MIGRANT_ELIGIBLE",
 	        ak.migrant "MIGRANT_ELIGIBLE",
 	        '' "MIGRANT_ID",
-	        case PS_CUSTOMFIELDS.GETSTUDENTSCF(S.ID,'SPED_maybillmedicaid')
+	        case st.SPED_MEMBER
 		        when '1' then 'Y'
 		        else 'N'
 		        end "MEDICAID_ELIGIBLE",
@@ -181,6 +182,7 @@
 	        ak.fte "FTE_ENROLLMENT_LEVEL"
         from students s
         join S_AK_STU_X ak on ak.studentsdcid = s.dcid
+        join U_STUDENTS st on s.dcid = st.studentsdcid
         where s.enroll_status = 0
         and s.grade_level < 13
 			]]>
