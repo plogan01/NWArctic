@@ -1,0 +1,186 @@
+<queries>
+	<query name="NWARCTIC.GOALVIEW.STUDENTS" coreTable="students" flattened="true">
+		<summary>Goalview Student Roster</summary>
+		<description>Provide an export file for student rosters</description>
+		<columns>
+			<column column="STUDENTS.STUDENT_NUMBER">STUDENT_ID</column>
+			<column column="STUDENTS.STUDENT_NUMBER">STATE_STUDENT_ID</column>
+      <column column="STUDENTS.STUDENT_NUMBER">OTHER_STUDENT_ID</column>
+      <column column="STUDENTS.STUDENT_NUMBER">SSN</column>
+      <column column="STUDENTS.STUDENT_NUMBER">NAME_TITLE</column>
+			<column column="STUDENTS.FIRST_NAME">NAME_FIRST</column>
+			<column column="STUDENTS.MIDDLE_NAME">NAME_MIDDLE</column>
+			<column column="STUDENTS.LAST_NAME">NAME_LAST</column>
+			<column column="S_AK_STU_X.SUFFIX">NAME_SUFFIX</column>
+      <column column="S_AK_STU_X.SUFFIX">NAME_PREFERRED</column>
+      <column column="STUDENTS.DOB">BIRTH_DATE</column>
+      <column column="STUDENTS.DOB">BIRTH_CITY</column>
+      <column column="STUDENTS.DOB">BIRTH_STATE</column>
+      <column column="STUDENTS.DOB">BIRTH_COUNTRY</column>
+			<column column="STUDENTS.GENDER">GENDER</column>
+      <column column="STUDENTS.GENDER">CITIZENSHIP_STATUS</column>
+      <column column="STUDENTS.GENDER">CITIZENSHIP_ONE</column>
+      <column column="STUDENTS.GENDER">CITIZENSHIP_TWO</column>
+      <column column="STUDENTS.GENDER">ENTRY_YEAR</column>
+      <column column="STUDENTS.GENDER">RESIDENT_ALIEN_ID</column>
+      <column column="PS_CUSTOMFIELDS.GETSTUDENTSCF">GEN_ED_ONLY</column>
+      <column column="STUDENTS.FEDETHNICITY">RACE</column>
+		</columns>
+		<sql>
+			<![CDATA[
+				select
+	        s.student_number "STUDENT_ID",
+	        s.student_number "STATE_STUDENT_ID",
+	        '' "OTHER_STUDENT_ID",
+	        '' "SSN",
+	        '' "NAME_TITLE",
+	        s.first_name "NAME_FIRST",
+	        s.MIDDLE_NAME "NAME_MIDDLE",
+	        s.LAST_NAME "NAME_LAST",
+	        ak.SUFFIX "NAME_SUFFIX",
+	        '' "NAME_PREFERRED",
+	        to_char (s.dob, 'mm/dd/yyyy') "BIRTH_DATE",
+	        '' "BIRTH_CITY",
+	        '' "BIRTH_STATE",
+	        '' "BIRTH_COUNTRY",
+	        s.gender "GENDER",
+	        '' "CITIZENSHIP_STATUS",
+	        '' "CITIZENSHIP_ONE",
+	        '' "CITIZENSHIP_TWO",
+	        '' "ENTRY_YEAR",
+	        '' "RESIDENT_ALIEN_ID",
+	        case PS_CUSTOMFIELDS.GETSTUDENTSCF(S.ID,'sped_member')
+		        when '1' then 'N'
+		        else 'Y'
+		        end "GEN_ED_ONLY",
+	        case s.FedEthnicity
+		        when 1 then 'Y'
+		        else 'N'
+		        end "RACE"
+	      from students s
+        join S_AK_STU_X ak on ak.studentsdcid = s.dcid
+        where s.enroll_status = 0
+			]]>
+		</sql>
+	</query>
+  <query name="NWARCTIC.GOALVIEW.PLACEMENT" coreTable="students" flattened="true">
+    <summary>Goalview Placement Roster</summary>
+    <description>Provide an export for GoalView</description>
+    <columns>
+      <column column="STUDENTS.STUDENT_NUMBER">STUDENT_ID</column>
+      <column column="STUDENTS.GRADE_LEVEL">GRADE</column>
+      <column column="STUDENTS.EXITDATE">SCHOOL_EXIT_DATE</column>
+      <column column="STUDENTS.EXITDATE">SCHOOL_EXIT_REASON</column>
+      <column column="STUDENTS.EXITDATE">TEACHER_ID</column>
+      <column column="STUDENTS.EXITDATE">CASE_MANAGER</column>
+      <column column="STUDENTS.SCHOOLID">SERVICE_SCHOOL</column>
+      <column column="STUDENTS.SCHOOLID">RESIDENCE_SCHOOL</column>
+      <column column="STUDENTS.SCHOOLID">ESY_PARTICIPANT</column>
+      <column column="STUDENTS.ENTRYDATE">SCHOOL_ENTRY_DATE</column>
+      <column column="STUDENTS.ENTRYCODE">SCHOOL_ENTRY_TYPE</column>
+    </columns>
+    <sql>
+      <![CDATA[
+				select
+	        s.student_number "STUDENT_ID",
+	        case s.grade_level
+		        when -2 then 'PK'
+		        when -1 then 'PK'
+		        when 0 then '0K'
+		        else to_char (s.grade_level)
+		        end "Grade",
+	        to_char (s.exitdate, 'mm/dd/yyyy') "SCHOOL_EXIT_DATE",
+	        '' "SCHOOL_EXIT_REASON",
+	        '' "TEACHER_ID",
+	        '' "CASE_MANAGER",
+	        case s.SCHOOLID
+		        when 370151 then 370150
+		        else s.schoolid
+		        end "SERVICE_SCHOOL",
+	        case s.SCHOOLID
+		        when 370151 then 370150
+		        else s.schoolid
+		        end "RESIDENCE_SCHOOL",
+	        '' "ESY_PARTICIPANT",
+	        to_char (s.ENTRYDATE, 'mm/dd/yyyy') "SCHOOL_ENTRY_DATE",
+	        s.entrycode "SCHOOL_ENTRY_TYPE"
+        from students s
+        join S_AK_STU_X ak on ak.studentsdcid = s.dcid
+        where s.enroll_status = 0
+			]]>
+    </sql>
+  </query>
+  <query name="NWARCTIC.GOALVIEW.SUPPLIMENTAL" coreTable="STUDENTS" flattened="true">
+    <summary>GoalView Supplimental Data</summary>
+    <description>Provide an export for GoalView</description>
+    <columns>
+      <column column="STUDENTS.STUDENT_NUMBER">STUDENT_ID</column>
+      <column column="STUDENTS.STUDENT_NUMBER">DRIVERS_LICENSE_NUMBER</column>
+      <column column="STUDENTS.STUDENT_NUMBER">DRIVERS_LICENSE_STATE</column>
+      <column column="S_AK_STU_X.ECON">TITLE1_PARTICIPANT</column>
+      <column column="S_AK_STU_X.SECTION504">SECTION504_PARTICIPANT</column>
+      <column column="S_AK_STU_X.SECTION504">ESL_PARTICIPANT</column>
+      <column column="S_AK_STU_X.SECTION504">CORRECTIONAL_PARTICIPANT</column>
+      <column column="S_AK_STU_X.SECTION504">GIFTED_PARTICIPANT</column>
+      <column column="S_AK_STU_X.SECTION504">LIT_PARTICIPANT</column>
+      <column column="S_AK_STU_X.MIGRANT">MIGRANT_ELIGIBLE</column>
+      <column column="S_AK_STU_X.MIGRANT">MIGRANT_ELIGIBLE</column>
+      <column column="S_AK_STU_X.MIGRANT">MIGRANT_ID</column>
+      <column column="PS_CUSTOMFIELDS.GETSTUDENTSCF">MEDICAID_ELIGIBLE</column>
+      <column column="PS_CUSTOMFIELDS.GETSTUDENTSCF">MEDICAID_ENROLLED</column>
+      <column column="PS_CUSTOMFIELDS.GETSTUDENTSCF">MEDICAID_ID</column>
+      <column column="PS_CUSTOMFIELDS.GETSTUDENTSCF">FREE_LUNCH</column>
+      <column column="PS_CUSTOMFIELDS.GETSTUDENTSCF">DWELLING_ARRANGEMENT</column>
+      <column column="S_AK_STU_X.LEP">LIMITED_ENGLISH_PROFICIENCY</column>
+      <column column="S_AK_STU_X.LEP">PREFERRED_LANGUAGE</column>
+      <column column="S_AK_STU_X.LEP">NATIVE_LANGUAGE</column>
+      <column column="S_AK_STU_X.LEP">PARENT_LANGUAGE</column>
+      <column column="S_AK_STU_X.LEP">INTERPERTER_REQUIRED</column>
+      <column column="S_AK_STU_X.LEP">ENGLISH_PROFICIENCY</column>
+      <column column="S_AK_STU_X.LEP">LEP_EXITDATE</column>
+      <column column="S_AK_STU_X.FTE">FTE_ENROLLMENT_LEVEL</column>
+    </columns>
+    <sql>
+      <![CDATA[
+				select
+	        s.student_number "STUDENT_ID",
+	        '' "DRIVERS_LICENSE_NUMBER",
+	        '' "DRIVERS_LICENSE_STATE",
+	        ak.ECON "TITLE1_PARTICIPANT",
+	        case ak.Section504
+		        when '1' then 'Y'
+		        else 'N'
+		        end "SECTION504_PARTICIPANT",
+	        '' "ESL_PARTICIPANT",
+	        '' "CORRECTIONAL_PARTICIPANT",
+	        '' "GIFTED_PARTICIPANT",
+	        '' "LIT_PARTICIPANT",
+	        ak.migrant "MIGRANT_ELIGIBLE",
+	        ak.migrant "MIGRANT_ELIGIBLE",
+	        '' "MIGRANT_ID",
+	        case PS_CUSTOMFIELDS.GETSTUDENTSCF(S.ID,'SPED_maybillmedicaid')
+		        when '1' then 'Y'
+		        else 'N'
+		        end "MEDICAID_ELIGIBLE",
+	        '' "MEDICAID_ENROLLED",
+	        '' "MEDICAID_ID",
+	        '' "FREE_LUNCH",
+	        '' "DWELLING_ARRANGEMENT",
+	        case ak.LEP
+		        when 'LP' then '3'
+		        else ''
+		        end "LIMITED_ENGLISH_PROFICIENCY",
+	        '' "PREFERRED_LANGUAGE",
+	        '' "NATIVE_LANGUAGE",
+	        '' "PARENT_LANGUAGE",
+	        '' "INTERPRETER_REQUIRED",
+	        '' "ENGLISH_PROFICIENCY",
+	        '' "LEP_EXITDATE",
+	        ak.fte "FTE_ENROLLMENT_LEVEL"
+        from students s
+        join S_AK_STU_X ak on ak.studentsdcid = s.dcid
+        where s.enroll_status = 0
+			]]>
+    </sql>
+  </query>
+</queries>
