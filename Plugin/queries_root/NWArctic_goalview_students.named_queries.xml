@@ -126,7 +126,7 @@
       <column column="S_AK_STU_X.SECTION504">GIFTED_PARTICIPANT</column>
       <column column="S_AK_STU_X.SECTION504">LIT_PARTICIPANT</column>
       <column column="S_AK_STU_X.MIGRANT">MIGRANT_ELIGIBLE</column>
-      <column column="S_AK_STU_X.MIGRANT">MIGRANT_ELIGIBLE</column>
+      <column column="S_AK_STU_X.MIGRANT">MIGRANT_ELIGIBLE2</column>
       <column column="S_AK_STU_X.MIGRANT">MIGRANT_ID</column>
       <column column="S_AK_STU_X.DISABILITY_CODE">MEDICAID_ELIGIBLE</column>
       <column column="S_AK_STU_X.DISABILITY_CODE">MEDICAID_ENROLLED</column>
