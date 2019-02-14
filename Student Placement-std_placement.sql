@@ -21,7 +21,10 @@ select
 	'' "ESY_PARTICIPANT",
 	to_char (s.ENTRYDATE, 'mm/dd/yyyy') "SCHOOL_ENTRY_DATE",
 	s.entrycode "SCHOOL_ENTRY_TYPE"
+
+
 from students s
 join S_AK_STU_X ak on ak.studentsdcid = s.dcid
+
 where s.enroll_status = 0
 and s.grade_level < 13

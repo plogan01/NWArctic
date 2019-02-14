@@ -12,12 +12,9 @@ select
 	'' "GIFTED_PARTICIPANT",
 	'' "LIT_PARTICIPANT",
 	ak.migrant "MIGRANT_ELIGIBLE",
-	ak.migrant "MIGRANT_ELIGIBLE",
+	ak.migrant "MIGRANT_PARTICIPATION",
 	'' "MIGRANT_ID",
-	case PS_CUSTOMFIELDS.GETSTUDENTSCF(S.ID,'SPED_maybillmedicaid')
-		when '1' then 'Y'
-		else 'N'
-		end "MEDICAID_ELIGIBLE",
+	'' "MEDICAID_ELIGIBLE",
 	'' "MEDICAID_ENROLLED",
 	'' "MEDICAID_ID",
 	'' "FREE_LUNCH",
@@ -33,7 +30,10 @@ select
 	'' "ENGLISH_PROFICIENCY",
 	'' "LEP_EXITDATE",
 	ak.fte "FTE_ENROLLMENT_LEVEL"
+
+
 from students s
 join S_AK_STU_X ak on ak.studentsdcid = s.dcid
+
 where s.enroll_status = 0
 and s.grade_level < 13
